@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+dist/
+tmp-ssr/
+.env.local
+client/.env
+client/dist/
+client/node_modules/
+tsconfig.tsbuildinfo
+next-env.d.ts
+*.log
+.DS_Store
+.vite/

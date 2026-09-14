@@ -1,0 +1,65 @@
+@import 'tailwindcss';
+
+/*
+ * Krishi Procurement Platform - design tokens.
+ * Deliberately restrained: a public-service look, high contrast, no gradients,
+ * no decorative animation, readable on low-end phones.
+ */
+@theme {
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-200: #bbf7d0;
+  --color-brand-300: #86efac;
+  --color-brand-400: #4ade80;
+  --color-brand-500: #22c55e;
+  --color-brand-600: #16a34a;
+  --color-brand-700: #15803d;
+  --color-brand-800: #166534;
+  --color-brand-900: #14532d;
+
+  --color-govt-50: #f1f5f9;
+  --color-govt-100: #e2e8f0;
+  --color-govt-200: #cbd5e1;
+  --color-govt-600: #334155;
+  --color-govt-700: #1e293b;
+  --color-govt-800: #172033;
+  --color-govt-900: #0f172a;
+
+  --font-sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial,
+    'Noto Sans', 'Noto Sans Devanagari', sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-slate-100 text-slate-800 antialiased;
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-slate-900;
+  }
+
+  /* Visible, consistent keyboard focus for accessibility. */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-600);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .k-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .k-skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50
+      focus:rounded-md focus:bg-brand-700 focus:px-4 focus:py-2 focus:text-white;
+  }
+}
