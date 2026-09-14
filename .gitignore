@@ -1,0 +1,24 @@
+# dependencies
+node_modules/
+
+# builds
+.next/
+out/
+build/
+dist/
+tmp-ssr/
+client/dist/
+public/assets/
+public/index.html
+
+# environment files - never commit real secrets
+.env.local
+client/.env
+server/.env
+
+# tooling
+tsconfig.tsbuildinfo
+next-env.d.ts
+.vite/
+*.log
+.DS_Store
