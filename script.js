@@ -188,6 +188,12 @@ function initHome() {
   } else {
     hide("rowVillage");
   }
+
+  // After login, also show the slots and the user's bookings.
+  show("slotsSection");
+  show("bookingsSection");
+  renderSlots();
+  renderMyBookings();
 }
 
 // ---------------- Registration form ----------------
@@ -388,6 +394,276 @@ function initLogin() {
     setPageMessage("Welcome back, " + foundUser.name + "!");
     window.location.href = "index.html";
   });
+}
+
+// ---------------- Demo centres and slots (Part 1) ----------------
+// Fixed demo data, like the mock data in the original frontend project.
+// Slot dates are counted from today (daysLater) so the demo always shows
+// upcoming slots. "bookedByOthers" is the seats already taken by other
+// farmers, so the numbers look real. One slot is kept Full and one Closed
+// on purpose, to show all three states.
+
+var centres = [
+  {
+    id: "c1",
+    name: "Satara Taluka Procurement Centre",
+    address: "Krishi Utpanna Bazar Samiti, Powai Naka, Satara",
+    district: "Satara",
+    state: "Maharashtra",
+    crops: "Wheat, Jowar"
+  },
+  {
+    id: "c2",
+    name: "Karad Block Procurement Centre",
+    address: "Near Bus Stand Road, Karad, Satara",
+    district: "Satara",
+    state: "Maharashtra",
+    crops: "Wheat, Gram"
+  },
+  {
+    id: "c3",
+    name: "Hazaribagh Sadar Procurement Centre",
+    address: "Block Office Campus, Sadar, Hazaribagh",
+    district: "Hazaribagh",
+    state: "Jharkhand",
+    crops: "Paddy"
+  }
+];
+
+var slots = [
+  { id: "s1", centreId: "c1", daysLater: 0, startTime: "09:00 AM", endTime: "10:00 AM", totalSeats: 30, bookedByOthers: 30, status: "OPEN" },
+  { id: "s2", centreId: "c1", daysLater: 0, startTime: "11:00 AM", endTime: "12:00 PM", totalSeats: 30, bookedByOthers: 12, status: "OPEN" },
+  { id: "s3", centreId: "c1", daysLater: 1, startTime: "09:00 AM", endTime: "10:00 AM", totalSeats: 30, bookedByOthers: 5, status: "OPEN" },
+  { id: "s4", centreId: "c2", daysLater: 0, startTime: "10:00 AM", endTime: "11:00 AM", totalSeats: 25, bookedByOthers: 8, status: "OPEN" },
+  { id: "s5", centreId: "c2", daysLater: 1, startTime: "02:00 PM", endTime: "03:00 PM", totalSeats: 25, bookedByOthers: 0, status: "CLOSED" },
+  { id: "s6", centreId: "c2", daysLater: 2, startTime: "09:00 AM", endTime: "10:00 AM", totalSeats: 25, bookedByOthers: 3, status: "OPEN" },
+  { id: "s7", centreId: "c3", daysLater: 1, startTime: "09:00 AM", endTime: "10:00 AM", totalSeats: 20, bookedByOthers: 14, status: "OPEN" },
+  { id: "s8", centreId: "c3", daysLater: 2, startTime: "11:00 AM", endTime: "12:00 PM", totalSeats: 20, bookedByOthers: 2, status: "OPEN" },
+  { id: "s9", centreId: "c3", daysLater: 3, startTime: "09:00 AM", endTime: "10:00 AM", totalSeats: 20, bookedByOthers: 0, status: "OPEN" }
+];
+
+// ---------------- Bookings (saved in the browser) ----------------
+
+function getBookings() {
+  var saved = localStorage.getItem("krishi_bookings");
+  if (saved === null) {
+    return [];
+  }
+  return JSON.parse(saved);
+}
+
+function saveBookings(bookings) {
+  localStorage.setItem("krishi_bookings", JSON.stringify(bookings));
+}
+
+function getCentre(centreId) {
+  for (var i = 0; i < centres.length; i++) {
+    if (centres[i].id === centreId) {
+      return centres[i];
+    }
+  }
+  return null;
+}
+
+function getSlot(slotId) {
+  for (var i = 0; i < slots.length; i++) {
+    if (slots[i].id === slotId) {
+      return slots[i];
+    }
+  }
+  return null;
+}
+
+// The slot's date as readable text, for example "Fri Oct 30 2026".
+function slotDateText(slot) {
+  var date = new Date();
+  date.setDate(date.getDate() + slot.daysLater);
+  return date.toDateString();
+}
+
+// Seats left = total seats - seats taken by other farmers
+//              - confirmed bookings made in this browser.
+function seatsLeft(slot) {
+  var taken = slot.bookedByOthers;
+  var bookings = getBookings();
+  for (var i = 0; i < bookings.length; i++) {
+    if (bookings[i].slotId === slot.id && bookings[i].status === "CONFIRMED") {
+      taken = taken + 1;
+    }
+  }
+  return slot.totalSeats - taken;
+}
+
+// The logged-in user's confirmed booking for this slot, if any.
+function myBookingForSlot(slotId) {
+  var user = getLoggedInUser();
+  var bookings = getBookings();
+  for (var i = 0; i < bookings.length; i++) {
+    if (bookings[i].slotId === slotId &&
+        bookings[i].userPhone === user.phone &&
+        bookings[i].status === "CONFIRMED") {
+      return bookings[i];
+    }
+  }
+  return null;
+}
+
+function setBookingMessage(text) {
+  var box = document.getElementById("bookingMessage");
+  box.textContent = text;
+  box.classList.remove("hidden");
+  box.scrollIntoView();
+}
+
+// ---------------- Showing the slots ----------------
+
+function renderSlots() {
+  var html = "";
+
+  for (var c = 0; c < centres.length; c++) {
+    var centre = centres[c];
+    html += '<div class="centre-card">';
+    html += "<h3>🏢 " + centre.name + "</h3>";
+    html += '<p class="note">' + centre.address + " · " + centre.district +
+            ", " + centre.state + "<br>Crops accepted: " + centre.crops + "</p>";
+
+    for (var s = 0; s < slots.length; s++) {
+      var slot = slots[s];
+      if (slot.centreId !== centre.id) {
+        continue;
+      }
+
+      var left = seatsLeft(slot);
+      html += '<div class="slot-row"><div class="slot-info">';
+      html += "<strong>" + slotDateText(slot) + "</strong> · " +
+              slot.startTime + " – " + slot.endTime + "<br>";
+
+      if (slot.status === "CLOSED") {
+        html += '<span class="badge badge-grey">Closed</span>';
+        html += "</div></div>";
+      } else if (left <= 0) {
+        html += '<span class="badge badge-red">Full</span> No seats left';
+        html += "</div></div>";
+      } else if (myBookingForSlot(slot.id) !== null) {
+        html += '<span class="badge badge-green">Available</span> ' + left + " seats left";
+        html += '</div><button class="btn btn-small" disabled>Booked ✓</button></div>';
+      } else {
+        html += '<span class="badge badge-green">Available</span> ' + left + " seats left";
+        html += '</div><button class="btn btn-small" onclick="bookSlot(\'' +
+                slot.id + '\')">Book slot</button></div>';
+      }
+    }
+
+    html += "</div>";
+  }
+
+  document.getElementById("slotsList").innerHTML = html;
+}
+
+// ---------------- Booking and cancelling ----------------
+
+function bookSlot(slotId) {
+  var user = getLoggedInUser();
+  if (user === null) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  var slot = getSlot(slotId);
+
+  // Safety checks (the button is hidden in these cases, but check anyway).
+  if (slot.status === "CLOSED" || seatsLeft(slot) <= 0) {
+    return;
+  }
+  if (myBookingForSlot(slotId) !== null) {
+    return; // already booked this slot
+  }
+
+  var centre = getCentre(slot.centreId);
+  var bookings = getBookings();
+
+  var booking = {
+    ref: "KP-2026-" + (1001 + bookings.length),
+    userPhone: user.phone,
+    userName: user.name,
+    slotId: slot.id,
+    centreName: centre.name,
+    date: slotDateText(slot),
+    time: slot.startTime + " – " + slot.endTime,
+    status: "CONFIRMED"
+  };
+  bookings.push(booking);
+  saveBookings(bookings);
+
+  setBookingMessage("✅ Slot booked! Your booking reference is " + booking.ref +
+                    ". Please reach the centre at your slot time.");
+  renderSlots();
+  renderMyBookings();
+}
+
+function cancelBooking(ref) {
+  if (!confirm("Cancel booking " + ref + "?")) {
+    return;
+  }
+
+  var bookings = getBookings();
+  for (var i = 0; i < bookings.length; i++) {
+    if (bookings[i].ref === ref) {
+      bookings[i].status = "CANCELLED";
+    }
+  }
+  saveBookings(bookings);
+
+  setBookingMessage("Booking " + ref + " has been cancelled. " +
+                    "The seat is now free for other farmers.");
+  renderSlots();
+  renderMyBookings();
+}
+
+// ---------------- Showing "My bookings" ----------------
+
+function renderMyBookings() {
+  var user = getLoggedInUser();
+  var bookings = getBookings();
+  var box = document.getElementById("bookingsList");
+
+  // Only this user's bookings.
+  var mine = [];
+  for (var i = 0; i < bookings.length; i++) {
+    if (bookings[i].userPhone === user.phone) {
+      mine.push(bookings[i]);
+    }
+  }
+
+  if (mine.length === 0) {
+    box.innerHTML = '<div class="card"><p>You have no bookings yet. Book a slot above.</p></div>';
+    return;
+  }
+
+  var html = '<div class="card table-wrap"><table class="bookings">';
+  html += "<tr><th>Reference</th><th>Centre</th><th>Date</th><th>Time</th><th>Status</th><th></th></tr>";
+
+  // Newest booking first.
+  for (var j = mine.length - 1; j >= 0; j--) {
+    var b = mine[j];
+    html += "<tr>";
+    html += "<td><strong>" + b.ref + "</strong></td>";
+    html += "<td>" + b.centreName + "</td>";
+    html += "<td>" + b.date + "</td>";
+    html += "<td>" + b.time + "</td>";
+    if (b.status === "CONFIRMED") {
+      html += '<td><span class="badge badge-green">Confirmed</span></td>';
+      html += '<td><button class="btn btn-small btn-cancel" onclick="cancelBooking(\'' +
+              b.ref + '\')">Cancel</button></td>';
+    } else {
+      html += '<td><span class="badge badge-red">Cancelled</span></td>';
+      html += "<td></td>";
+    }
+    html += "</tr>";
+  }
+
+  html += "</table></div>";
+  box.innerHTML = html;
 }
 
 // ---------------- Run when the page opens ----------------

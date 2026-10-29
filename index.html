@@ -43,10 +43,27 @@
           <tr><th>District</th><td id="dDistrict"></td></tr>
           <tr><th>State</th><td id="dState"></td></tr>
         </table>
-        <p class="note">This simple version has only the website, login and registration.
-          Slot booking can be added later.</p>
+        <p class="note">Scroll down to see the procurement centres and book your slot.</p>
         <button class="btn" onclick="logout()">Logout</button>
       </div>
+    </div>
+  </section>
+
+  <!-- Slots: shown only when the user is logged in -->
+  <section id="slotsSection" class="section hidden">
+    <div class="container">
+      <h2>📅 Book a procurement slot</h2>
+      <p class="note">Choose a centre and a time slot. One booking gives you one booking reference.</p>
+      <p id="bookingMessage" class="message hidden"></p>
+      <div id="slotsList"></div>
+    </div>
+  </section>
+
+  <!-- My bookings: shown only when the user is logged in -->
+  <section id="bookingsSection" class="section hidden">
+    <div class="container">
+      <h2>🧾 My bookings</h2>
+      <div id="bookingsList"></div>
     </div>
   </section>
 
@@ -111,8 +128,8 @@
         <div class="small-card">
           <span class="step-no">3</span>
           <h3>Book a slot</h3>
-          <p>Choose a nearby centre and a time slot. <em>(Coming soon in this
-             simple version.)</em></p>
+          <p>Choose a nearby centre, pick a date and a time slot that suits you,
+             and get a booking reference.</p>
         </div>
         <div class="small-card">
           <span class="step-no">4</span>

@@ -47,11 +47,23 @@ then open http://localhost:8000 in your browser.
   plus password. Wrong details show a clear error message.
 - After login, the home page shows a welcome message with your account
   details, and the top bar shows your name with a **Logout** button.
+- **Procurement slots (Part 1)** — after login, the home page lists
+  demo procurement centres (Satara Taluka, Karad Block, Hazaribagh Sadar)
+  with their time slots: date, time, seats left, and status
+  (Available / Full / Closed). Slot dates are counted from today, so the
+  demo always shows upcoming slots.
+- **Booking** — click **Book slot** to book. You get a booking reference
+  like `KP-2026-1001`, the seats-left count goes down by one, and the
+  button changes to **Booked ✓** (one booking per farmer per slot).
+- **My bookings** — your bookings are listed under the slots with their
+  status. **Cancel** frees the seat again for other farmers.
 
 ## How login works (frontend only)
 
 This version has no server or database, so accounts created from the
-registration form are saved in the browser using `localStorage`.
+registration form — and the bookings you make — are saved in the browser
+using `localStorage`. The centres and slots are demo data written in
+`script.js`, like the mock data of the original Part 1 frontend.
 
 That means:
 
