@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Krishi Procurement Platform</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🌾</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header>
+    <div class="container header-inner">
+      <a class="logo" href="index.html">🌾 Krishi Procurement Platform</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html" id="navLogin">Login</a>
+        <a href="register.html" id="navRegister">Register</a>
+        <span id="navUser" class="hidden"></span>
+        <button id="navLogout" class="hidden nav-btn" onclick="logout()">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Login form -->
+  <div class="container">
+    <div class="form-box">
+      <h1>Login</h1>
+      <p class="note">Use the mobile number (or email) you registered with.</p>
+
+      <form id="loginForm">
+        <p id="formError" class="form-error hidden"></p>
+
+        <div class="field">
+          <label for="identifier">Mobile number or email *</label>
+          <input type="text" id="identifier" placeholder="10-digit mobile number or email">
+          <p class="error" id="error-identifier"></p>
+        </div>
+
+        <div class="field">
+          <label for="password">Password *</label>
+          <input type="password" id="password" placeholder="Enter your password">
+          <p class="error" id="error-password"></p>
+        </div>
+
+        <button type="submit" class="btn btn-block">Login</button>
+      </form>
+
+      <div class="demo-box">
+        <strong>Demo accounts (for testing)</strong><br>
+        Farmer: 9876543210 / farmer123<br>
+        Admin: admin@krishi.gov.in / admin123
+      </div>
+
+      <p class="center">Do not have an account? <a href="register.html">Register here</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>Krishi Procurement Platform — Smart India Hackathon project.<br>
+         Simple website version made with only HTML, CSS and JavaScript.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

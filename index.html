@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krishi Procurement Platform | Smarter Procurement. Less Waiting.</title>
+  <meta name="description" content="Krishi Procurement Platform - a simple website that helps farmers at agricultural procurement centres.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🌾</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header>
+    <div class="container header-inner">
+      <a class="logo" href="index.html">🌾 Krishi Procurement Platform</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html" id="navLogin">Login</a>
+        <a href="register.html" id="navRegister">Register</a>
+        <span id="navUser" class="hidden"></span>
+        <button id="navLogout" class="hidden nav-btn" onclick="logout()">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Green success message (shown after login / registration) -->
+  <div class="container">
+    <p id="pageMessage" class="message hidden"></p>
+  </div>
+
+  <!-- Shown only when the user is logged in -->
+  <section id="welcomeBox" class="section hidden">
+    <div class="container">
+      <div class="card">
+        <h2 id="welcomeTitle">Welcome</h2>
+        <p>You are logged in. Your account details:</p>
+        <table class="details">
+          <tr><th>Name</th><td id="dName"></td></tr>
+          <tr><th>Mobile number</th><td id="dPhone"></td></tr>
+          <tr id="rowEmail"><th>Email</th><td id="dEmail"></td></tr>
+          <tr id="rowVillage"><th>Village</th><td id="dVillage"></td></tr>
+          <tr><th>District</th><td id="dDistrict"></td></tr>
+          <tr><th>State</th><td id="dState"></td></tr>
+        </table>
+        <p class="note">This simple version has only the website, login and registration.
+          Slot booking can be added later.</p>
+        <button class="btn" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Smarter Procurement. Less Waiting.</h1>
+      <p>A farmer should not have to spend hours waiting at a procurement centre
+         just to find out when their turn will come. This platform is made to help
+         farmers plan their visit to the procurement centre.</p>
+      <div id="heroButtons">
+        <a class="btn btn-light" href="register.html">Register as a farmer</a>
+        <a class="btn btn-outline" href="login.html">Login</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- The problem -->
+  <section class="section">
+    <div class="container">
+      <h2>The problem</h2>
+      <div class="cards">
+        <div class="small-card">
+          <h3>⏳ Hours lost waiting</h3>
+          <p>Farmers reach the centre early and wait for a long time, because there
+             is no way to know when their turn will actually come.</p>
+        </div>
+        <div class="small-card">
+          <h3>❓ No idea of your turn</h3>
+          <p>At the centre, nobody knows how many people are ahead of them or how
+             long the wait will be.</p>
+        </div>
+        <div class="small-card">
+          <h3>🚜 Crowding at peak hours</h3>
+          <p>Everyone arrives at the same time, so counters are free in some hours
+             and overcrowded in others.</p>
+        </div>
+        <div class="small-card">
+          <h3>💰 Unclear payment status</h3>
+          <p>After procurement, farmers have to ask again and again to know the
+             status of their payment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section">
+    <div class="container">
+      <h2>How it works</h2>
+      <div class="cards">
+        <div class="small-card">
+          <span class="step-no">1</span>
+          <h3>Register</h3>
+          <p>Create an account with your name, mobile number and village details.</p>
+        </div>
+        <div class="small-card">
+          <span class="step-no">2</span>
+          <h3>Login</h3>
+          <p>Sign in any time with your mobile number and password.</p>
+        </div>
+        <div class="small-card">
+          <span class="step-no">3</span>
+          <h3>Book a slot</h3>
+          <p>Choose a nearby centre and a time slot. <em>(Coming soon in this
+             simple version.)</em></p>
+        </div>
+        <div class="small-card">
+          <span class="step-no">4</span>
+          <h3>Visit the centre</h3>
+          <p>Reach the centre close to your booked time instead of standing in a
+             long queue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Krishi Procurement Platform — Smart India Hackathon project.<br>
+         Simple website version made with only HTML, CSS and JavaScript.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

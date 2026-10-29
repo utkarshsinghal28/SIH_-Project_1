@@ -1,0 +1,303 @@
+/* Krishi Procurement Platform - simple styles
+   Plain CSS only. No frameworks. */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.hidden {
+  display: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.note {
+  color: #475569;
+  font-size: 14px;
+}
+
+/* ---------- Top bar ---------- */
+
+header {
+  background: #14532d;
+  color: white;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.logo {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 16px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+#navUser {
+  margin-left: 16px;
+  font-weight: bold;
+}
+
+.nav-btn {
+  background: white;
+  color: #14532d;
+  border: none;
+  padding: 6px 12px;
+  margin-left: 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-block;
+  background: #15803d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #166534;
+}
+
+.btn-light {
+  background: white;
+  color: #166534;
+  font-weight: bold;
+}
+
+.btn-light:hover {
+  background: #dcfce7;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ---------- Home page ---------- */
+
+.hero {
+  background: #15803d;
+  color: white;
+  padding: 48px 0;
+}
+
+.hero h1 {
+  margin-top: 0;
+  font-size: 32px;
+}
+
+.hero p {
+  max-width: 650px;
+  line-height: 1.6;
+}
+
+#heroButtons {
+  margin-top: 20px;
+}
+
+#heroButtons .btn {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.section {
+  padding: 32px 0 8px 0;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card,
+.small-card {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.small-card {
+  flex: 1 1 200px;
+}
+
+.small-card p {
+  line-height: 1.5;
+}
+
+.step-no {
+  display: inline-block;
+  background: #15803d;
+  color: white;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+/* ---------- Messages ---------- */
+
+.message {
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  color: #14532d;
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+.form-error {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.error {
+  color: #b91c1c;
+  font-size: 14px;
+  margin: 4px 0 0 0;
+}
+
+.demo-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ---------- Forms ---------- */
+
+.form-box {
+  max-width: 520px;
+  margin: 32px auto;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.form-box h1 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+  background: white;
+}
+
+/* ---------- Account details table ---------- */
+
+.details {
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+
+.details th,
+.details td {
+  text-align: left;
+  padding: 6px 20px 6px 0;
+  vertical-align: top;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  background: #14532d;
+  color: white;
+  text-align: center;
+  padding: 16px 0;
+  margin-top: 40px;
+  line-height: 1.6;
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 32px 0;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+  }
+
+  nav a {
+    margin-left: 10px;
+  }
+
+  .form-box {
+    margin: 16px auto;
+    padding: 16px;
+  }
+}

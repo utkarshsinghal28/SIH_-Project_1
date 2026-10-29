@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Krishi Procurement Platform</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🌾</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header>
+    <div class="container header-inner">
+      <a class="logo" href="index.html">🌾 Krishi Procurement Platform</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html" id="navLogin">Login</a>
+        <a href="register.html" id="navRegister">Register</a>
+        <span id="navUser" class="hidden"></span>
+        <button id="navLogout" class="hidden nav-btn" onclick="logout()">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Registration form -->
+  <div class="container">
+    <div class="form-box">
+      <h1>Farmer registration</h1>
+      <p class="note">Only basic details are needed to create your account.</p>
+
+      <form id="registerForm">
+        <p id="formError" class="form-error hidden"></p>
+
+        <div class="field">
+          <label for="name">Full name *</label>
+          <input type="text" id="name" placeholder="As per your records">
+          <p class="error" id="error-name"></p>
+        </div>
+
+        <div class="field">
+          <label for="phone">Mobile number *</label>
+          <input type="tel" id="phone" maxlength="10" placeholder="10-digit mobile number">
+          <p class="error" id="error-phone"></p>
+        </div>
+
+        <div class="field">
+          <label for="email">Email (optional)</label>
+          <input type="email" id="email" placeholder="name@example.com">
+          <p class="error" id="error-email"></p>
+        </div>
+
+        <div class="field">
+          <label for="password">Password *</label>
+          <input type="password" id="password" placeholder="At least 6 characters">
+          <p class="error" id="error-password"></p>
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword">Confirm password *</label>
+          <input type="password" id="confirmPassword" placeholder="Re-enter your password">
+          <p class="error" id="error-confirmPassword"></p>
+        </div>
+
+        <h3>Your location</h3>
+
+        <div class="field">
+          <label for="village">Village *</label>
+          <input type="text" id="village" placeholder="Village name">
+          <p class="error" id="error-village"></p>
+        </div>
+
+        <div class="field">
+          <label for="district">District *</label>
+          <input type="text" id="district" placeholder="District name">
+          <p class="error" id="error-district"></p>
+        </div>
+
+        <div class="field">
+          <label for="state">State *</label>
+          <select id="state">
+            <option value="">Select your state</option>
+            <option>Andhra Pradesh</option>
+            <option>Assam</option>
+            <option>Bihar</option>
+            <option>Chhattisgarh</option>
+            <option>Gujarat</option>
+            <option>Haryana</option>
+            <option>Jharkhand</option>
+            <option>Karnataka</option>
+            <option>Kerala</option>
+            <option>Madhya Pradesh</option>
+            <option>Maharashtra</option>
+            <option>Odisha</option>
+            <option>Punjab</option>
+            <option>Rajasthan</option>
+            <option>Tamil Nadu</option>
+            <option>Telangana</option>
+            <option>Uttar Pradesh</option>
+            <option>Uttarakhand</option>
+            <option>West Bengal</option>
+          </select>
+          <p class="error" id="error-state"></p>
+        </div>
+
+        <button type="submit" class="btn btn-block">Create account</button>
+
+        <p class="note center">We do not ask for Aadhaar, bank or land details in this application.</p>
+      </form>
+
+      <p class="center">Already registered? <a href="login.html">Login here</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>Krishi Procurement Platform — Smart India Hackathon project.<br>
+         Simple website version made with only HTML, CSS and JavaScript.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
